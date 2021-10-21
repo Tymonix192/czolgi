@@ -1,4 +1,5 @@
 import pgzrun
+
 HEIGHT = 700
 WIDTH = 1000
 
@@ -6,7 +7,7 @@ class Czolg:
     def __init__(self, x, y):
         self.body = Actor("tankbody", (x, y))
         self.gasienica = Actor("gasienice", (x, y+24.5))
-        self.lufa = Actor("lufa", (x+20, y-18))
+        self.lufa = Actor("lufa", anchor=(0, 0), topleft=(x-7, y-22.5))
     def draw(self):
         self.gasienica.draw()
         self.lufa.draw()
@@ -19,6 +20,12 @@ class Czolg:
         self.gasienica.x -= 2
         self.lufa.x -= 2
         self.body.x -= 2
+    def lufagora(self):
+        if self.lufa.angle < 90:
+            self.lufa.angle += 2
+    def lufadol(self):
+        if self.lufa.angle > 0:
+            self.lufa.angle -= 2
 
 
 czolg = Czolg(200,630-24.5-15)
@@ -33,8 +40,10 @@ def update():
         czolg.prawo()
     if keyboard.LEFT:
         czolg.lewo()
-
-
+    if keyboard.UP:
+        czolg.lufagora()
+    if keyboard.DOWN:
+        czolg.lufadol()
 
 
 
